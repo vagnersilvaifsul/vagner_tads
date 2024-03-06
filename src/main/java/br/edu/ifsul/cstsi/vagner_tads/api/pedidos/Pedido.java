@@ -4,12 +4,19 @@ package br.edu.ifsul.cstsi.vagner_tads.api.pedidos;
 import br.edu.ifsul.cstsi.vagner_tads.api.clientes.Cliente;
 import br.edu.ifsul.cstsi.vagner_tads.api.itens.Item;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 
 @Entity(name = "Pedido")
 @Table(name = "pedidos")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pedido {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
