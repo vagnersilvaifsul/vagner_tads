@@ -1,18 +1,20 @@
 package br.edu.ifsul.cstsi.vagner_tads.api.produtos;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/produtos")
 public class ProdutoController {
 
     @Autowired
-    ProdutoService service;
+    private ProdutoService service;
 
     @GetMapping
     public ResponseEntity<List<ProdutoDTOResponse>> selectAll() {
@@ -20,28 +22,47 @@ public class ProdutoController {
     }
 
     @GetMapping("{id}")
-    public String selectById(@PathVariable("id") Long id) {
-        return "selectById " + id;
+    public ResponseEntity<ProdutoDTOResponse> selectById(@PathVariable("id") Long id) {
+        var p = service.getProdutoById(id);
+        if(p.isPresent()){
+            return ResponseEntity.ok(ProdutoDTOResponse.create(p.get()));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/nome/{nome}")
-    public String selectByNome(@PathVariable("nome") String nome) {
-        return "selectByNome " + nome;
+    public ResponseEntity<List<ProdutoDTOResponse>> selectByNome(@PathVariable("nome") String nome) {
+        var produtos = service.getProdutosByNome(nome);
+        return produtos.isEmpty() ?
+            ResponseEntity.noContent().build() :
+            ResponseEntity.ok(produtos);
     }
 
     @PostMapping
-    public String insert(@RequestBody Produto produto) {
-        return "insert " + produto;
+    public ResponseEntity<URI> insert(@RequestBody Produto produto){
+        var p = service.insert(produto);
+        var location = getUri(p.getId());
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("{id}")
-    public String update(@PathVariable("id") Long id, @RequestBody Produto produto) {
-        return "update " + id + " " + produto;
+    public ResponseEntity<ProdutoDTOResponse> update(@PathVariable("id") Long id, @RequestBody Produto produto){
+        produto.setId(id);
+        var p = service.update(produto, id);
+        return p != null ?
+            ResponseEntity.ok(p) :
+            ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("{id}")
-    public String delete(@PathVariable("id") Long id) {
-        return "delete " + id;
+    public ResponseEntity<String> delete(@PathVariable("id") Long id){
+        return service.delete(id) ?
+            ResponseEntity.ok().build() :
+            ResponseEntity.notFound().build();
     }
 
+    //utilitário
+    private URI getUri(Long id) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+    }
 }

@@ -17,7 +17,7 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <!-- Módulos Base do Sping para Projetos de API REST -->
+        <!-- Módulos Base do Spring para Projetos de API REST -->
         <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,6 +40,12 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- Test Automatizado -->

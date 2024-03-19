@@ -13,7 +13,7 @@ public class ProdutoDTORequest {
     private Integer estoque;
 
     public static ProdutoDTORequest create(Produto p){
-        ModelMapper modelMapper = new ModelMapper();
+        var modelMapper = new ModelMapper();
         return modelMapper.map(p, ProdutoDTORequest.class);
     }
 }

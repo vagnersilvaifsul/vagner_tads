@@ -13,7 +13,7 @@ public class ProdutoDTOResponse {
     private Integer estoque;
 
     public static ProdutoDTOResponse create(Produto p){
-        ModelMapper modelMapper = new ModelMapper();
+        var modelMapper = new ModelMapper();
         return modelMapper.map(p, ProdutoDTOResponse.class);
     }
 }
