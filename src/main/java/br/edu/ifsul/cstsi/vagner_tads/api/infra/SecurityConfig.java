@@ -1,6 +1,5 @@
 package br.edu.ifsul.cstsi.vagner_tads.api.infra;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
