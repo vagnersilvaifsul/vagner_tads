@@ -3,6 +3,7 @@ package br.edu.ifsul.cstsi.vagner_tads.api.produtos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,6 +40,7 @@ public class ProdutoController {
     }
 
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<URI> insert(@RequestBody Produto produto){
         var p = service.insert(produto);
         var location = getUri(p.getId());
