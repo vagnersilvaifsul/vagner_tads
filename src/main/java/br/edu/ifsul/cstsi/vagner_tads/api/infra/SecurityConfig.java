@@ -40,7 +40,7 @@ public class SecurityConfig {
                 req.requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll(); //exceto, a rota de login
                 req.anyRequest().authenticated(); //demais rotas devem ser autenticadas
             })
-            .httpBasic(Customizer.withDefaults());
+            .httpBasic(Customizer.withDefaults()); //configura o Basic Authentication com as configurações padrão do Spring Security
         return http.build();
     }
 
