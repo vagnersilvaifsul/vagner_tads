@@ -16,8 +16,7 @@ public class AutenticacaoController {
     @PostMapping
     public ResponseEntity efetuaLogin(@RequestBody UsuarioDTO userDTO){
         var authenticationDTO = new UsernamePasswordAuthenticationToken(userDTO.usuario(), userDTO.senha()); //converte o DTO em DTO do Spring Security
-        var authentication = manager.authenticate(authenticationDTO); //utiliza o genrenciador de autenticação para autenticar o userDTO
-        //System.out.println(authentication);
+        manager.authenticate(authenticationDTO); //utiliza o genrenciador de autenticação para autenticar o userDTO
         return ResponseEntity.ok().build();
     }
 }
