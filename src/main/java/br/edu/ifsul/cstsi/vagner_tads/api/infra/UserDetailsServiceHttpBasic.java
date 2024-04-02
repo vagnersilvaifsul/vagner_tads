@@ -1,6 +1,6 @@
 package br.edu.ifsul.cstsi.vagner_tads.api.infra;
 
-import br.edu.ifsul.cstsi.vagner_tads.api.usuarios.UsuarioRepository;
+import br.edu.ifsul.cstsi.vagner_tads.api.usuarios.AutenticacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceHttpBasic implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRep;
+    private AutenticacaoRepository usuarioRep;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
