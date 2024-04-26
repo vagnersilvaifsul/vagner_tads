@@ -1,6 +1,5 @@
 package br.edu.ifsul.cstsi.vagner_tads.api.infra;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,9 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true) //controle de acesso por anotação em métodos
 public class SecurityConfig {
-
-    @Autowired
-    private UserDetailsServiceHttpBasic userDetailsService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -42,8 +38,7 @@ public class SecurityConfig {
                 req.requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll(); //exceto, a rota de login
                 req.anyRequest().authenticated(); //demais rotas devem ser autenticadas
             })
-            .httpBasic(Customizer.withDefaults()) //configura o HTTP Basic com as configurações padrão do Spring Security
-            .userDetailsService(userDetailsService); //adiciona o objeto responsável pela autenticação em banco de dados (no esquema HTTP Basic)
+            .httpBasic(Customizer.withDefaults()); //configura o HTTP Basic com as configurações padrão do Spring Security
         return http.build();
     }
 
